@@ -1,0 +1,20 @@
+name: go-lint
+version: 1.0.0
+
+inputs:
+- name: FLOWCI_GIT_REPO
+  type: string
+  required: true
+
+- name: GOLINT_VERSION
+  type: string
+  value: v1.21.0
+  required: false
+
+- name: GOLINT_CONFIG_FILE
+  type: string
+  required: false
+
+script: |
+  plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/go-lint
+  docker run --rm -v $(FLOWCI_GIT_REPO):/app -w /app golangci/golangci-lint:v1.21.0 golangci-lint run -v

@@ -1,2 +1,3 @@
-# flowci-plugin-go-lint
+# go-lint
 golangci-lint plugin
+
