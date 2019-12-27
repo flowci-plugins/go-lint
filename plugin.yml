@@ -18,4 +18,4 @@ inputs:
 
 script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/go-lint
-  docker run --rm -v ${FLOWCI_GIT_REPO}:/app -w /app golangci/golangci-lint:${GOLINT_VERSION} golangci-lint run -v
+  docker run --rm -v ${FLOWCI_AGENT_JOB_DIR}/${FLOWCI_GIT_REPO}:/app -w /app golangci/golangci-lint:${GOLINT_VERSION} golangci-lint run -v
