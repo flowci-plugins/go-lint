@@ -18,14 +18,11 @@ inputs:
 
 script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/go-lint
+  cd ${FLOWCI_GIT_REPO}
 
-  golangci_container_id=$(docker run --rm -dit -w /app golangci/golangci-lint:${GOLINT_VERSION} bash)
-  docker cp ${FLOWCI_AGENT_JOB_DIR}/${FLOWCI_GIT_REPO} ${golangci_container_id}:/app
-  
-  set +e
+  golangci_container_id=$(docker run -dit -w /app golangci/golangci-lint:${GOLINT_VERSION} bash)
+  docker cp ${PWD} ${golangci_container_id}:/app
+
   docker exec ${golangci_container_id} bash -c 'cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v'
   exit_code=$(echo $?)
   docker rm -f ${golangci_container_id}
-  set -e
-
-  exit $exit_code
