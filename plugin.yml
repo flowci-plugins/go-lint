@@ -23,10 +23,7 @@ script: |
   golangci_container_id=$(docker run -dit -w /app -e FLOWCI_GIT_REPO=$FLOWCI_GIT_REPO golangci/golangci-lint:${GOLINT_VERSION} bash)
   docker cp ${PWD} ${golangci_container_id}:/app
 
-  set +e
-  docker exec ${golangci_container_id} bash -c 'cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v'
-  exit_code=$(echo $?)
+  docker exec ${golangci_container_id} bash -c 'cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v' || err_code=$?
   docker rm -f ${golangci_container_id}
-  set -e
 
-  exit $exit_code
+  exit $err_code
