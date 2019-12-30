@@ -26,4 +26,6 @@ script: |
   docker exec ${golangci_container_id} bash -c 'cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v' || err_code=$?
   docker rm -f ${golangci_container_id}
 
-  exit $err_code
+  if [[ -n $err_code ]]; then
+    false
+  fi
