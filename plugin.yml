@@ -16,16 +16,9 @@ inputs:
   type: string
   required: false
 
-script: |
-  plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/go-lint
-  cd ${FLOWCI_GIT_REPO}
-
-  golangci_container_id=$(docker run -dit -w /app -e FLOWCI_GIT_REPO=$FLOWCI_GIT_REPO golangci/golangci-lint:${GOLINT_VERSION} bash)
-  docker cp ${PWD} ${golangci_container_id}:/app
-
-  docker exec ${golangci_container_id} bash -c 'cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v' || err_code=$?
-  docker rm -f ${golangci_container_id}
-
-  if [[ -n $err_code ]]; then
-    false
-  fi
+parent:
+  name: "docker-runner"
+  version: "1.0.0"
+  envs:
+    CI_DOCKER_IMAGE: "golangci/golangci-lint:${GOLINT_VERSION}"
+    CI_DOCKER_CMD: "cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v"
