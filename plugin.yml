@@ -17,4 +17,5 @@ parent:
   version: "1.0.0"
   envs:
     CI_DOCKER_IMAGE: "golangci/golangci-lint:${CI_GOLINT_VERSION}"
-    CI_DOCKER_CMD: "cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v"
+    CI_DOCKER_CMD: "golangci-lint run -v"
+    CI_DOCKER_WORKDIR: "/ws/${FLOWCI_GIT_REPO}"
