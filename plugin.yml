@@ -7,18 +7,14 @@ inputs:
   type: string
   required: true
 
-- name: GOLINT_VERSION
+- name: CI_GOLINT_VERSION
   type: string
   value: v1.21.0
-  required: false
-
-- name: GOLINT_CONFIG_FILE
-  type: string
   required: false
 
 parent:
   name: "docker-runner"
   version: "1.0.0"
   envs:
-    CI_DOCKER_IMAGE: "golangci/golangci-lint:${GOLINT_VERSION}"
+    CI_DOCKER_IMAGE: "golangci/golangci-lint:${CI_GOLINT_VERSION}"
     CI_DOCKER_CMD: "cd /app/${FLOWCI_GIT_REPO} && golangci-lint run -v"
