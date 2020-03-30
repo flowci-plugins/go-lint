@@ -9,6 +9,8 @@ inputs:
 
 docker:
   image: golangci/golangci-lint:v1.21.0
+  stop_on_finish: false
+  delete_on_finish: false
 
 script: |
   cd $FLOWCI_GIT_REPO
