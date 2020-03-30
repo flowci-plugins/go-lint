@@ -7,7 +7,6 @@ To run GolangCI-Lint tool by docker for static check
 ## Inputs
 
 - `FLOWCI_GIT_REPO` (required): git repo name
-- `CI_GOLINT_VERSION`: GolangCI-Lint version, default is `v1.21.0`
 
 ## How to use it
 

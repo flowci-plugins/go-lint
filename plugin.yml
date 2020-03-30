@@ -1,5 +1,5 @@
 name: go-lint
-version: 1.0.0
+version: 1.1.0
 icon: "golang-icon.svg"
 
 inputs:
@@ -7,15 +7,9 @@ inputs:
   type: string
   required: true
 
-- name: CI_GOLINT_VERSION
-  type: string
-  value: v1.21.0
-  required: false
+docker:
+  image: golangci/golangci-lint:v1.21.0
 
-parent:
-  name: "docker-runner"
-  version: "1.0.0"
-  envs:
-    CI_DOCKER_IMAGE: "golangci/golangci-lint:${CI_GOLINT_VERSION}"
-    CI_DOCKER_CMD: "golangci-lint run -v"
-    CI_DOCKER_WORKDIR: "${FLOWCI_GIT_REPO}"
+script: |
+  cd $FLOWCI_GIT_REPO
+  golangci-lint run -v
