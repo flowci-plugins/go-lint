@@ -4,10 +4,6 @@
 
 To run GolangCI-Lint tool by docker for static check
 
-## Inputs
-
-- `FLOWCI_GIT_REPO` (required): git repo name
-
 ## How to use it
 
 ```yml
